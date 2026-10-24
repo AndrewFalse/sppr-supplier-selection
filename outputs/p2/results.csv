@@ -1,0 +1,16 @@
+category,rank,vendor,model,global_priority
+ИБП,1,Piton,"PitON РТ-серия 3kVA с АКБ 9Ач (5 лет), РТ0030.008.002",0.3602
+ИБП,2,Eltena,Monolith E3000RTLT (EN-ME-3000RTLT) + батарейный блок BFR96-9E,0.3109
+ИБП,3,Vertiv,Liebert GXT5-3000IRT2UXLE,0.1694
+ИБП,4,APC,Smart-UPS SRT 3000VA RM SRT3000RMXLI-NC,0.1596
+АВР,1,Уралэнерготел,АВР19-16А-4 (NA04190316),0.4071
+АВР,2,Elemy,ATS-1603,0.3377
+АВР,3,BONPET,АВР-Б-63-2-1 (щитовой шкаф),0.2552
+КВМ,1,Aten,CS1924M-AT-G,0.6364
+КВМ,2,Adder,ADDERView PRO AV4PRO-DP,0.3636
+Коммутаторы,1,Eltex,MES2300-24,0.3574
+Коммутаторы,2,HP (HPE Aruba),Aruba CX 6100 24G 4SFP+ (JL678A),0.2281
+Коммутаторы,3,MikroTik,CRS326-24G-2S+RM,0.2083
+Коммутаторы,4,Cisco,Catalyst C1000-24T-4X-L,0.2062
+ПК и серверы,1,Lenovo,ThinkCentre M70q Gen 4 12E3S1KY00 + ThinkSystem SR250 V3 (1U),0.5847
+ПК и серверы,2,HP,HP Elite 800 G9 Mini C7GG7AT + HPE ProLiant DL20 Gen10 4SFF P17081-B21 (1U),0.4153
