@@ -1,0 +1,77 @@
+{
+  "_comment": "Параметры модели практики №3. source: data - из данных; expert - экспертная оценка аналитика (модельная); law - норма права (по аналогии с 44-ФЗ).",
+  "project": {
+    "n_complexes": 10,
+    "_n_complexes": "expert: крупный проект = 10 типовых комплексов",
+    "horizon_days": 91,
+    "_horizon_days": "expert: от решения о закупке до монтажа ~3 месяца",
+    "contract_multiplier": 2.0,
+    "_contract_multiplier": "expert: цена договора на монтаж ≈ 2 × стоимость комплектующих (работы, шкафы, пульты)",
+    "crew_cost_per_day": 25000,
+    "_crew_cost_per_day": "expert: простой монтажной бригады, ₽/день на весь проект",
+    "storage_rate": 0.01,
+    "_storage_rate": "expert: хранение запаса при опережающей закупке, доля стоимости"
+  },
+  "bom": {
+    "_comment": "expert (по умолчанию, согласовано с пользователем): состав одного типового комплекса",
+    "ИБП": 2, "АВР": 1, "КВМ": 2, "Коммутаторы": 2, "ПК": 2, "Сервер": 1
+  },
+  "pc_server_split": {
+    "_comment": "data: цены ПК и сервера внутри комплекта «ПК и серверы» (data/processed/alternatives.csv, notes)",
+    "Lenovo": {"ПК": 63562, "Сервер": 391862},
+    "HP": {"ПК": 95933, "Сервер": 184244}
+  },
+  "fx": {
+    "currency": "USD",
+    "since": "2023-01-01",
+    "threshold": 0.05,
+    "_comment": "data: сценарии и вероятности - частоты изменения курса ЦБ за horizon_days (data/raw/cbr_fx.csv)"
+  },
+  "fx_exposure": {
+    "_comment": "expert: доля цены, зависящая от курса",
+    "russian_production": 0.3,
+    "russian_brand_foreign_production": 0.7,
+    "official_distributor": 0.9,
+    "other": 1.0
+  },
+  "supply": {
+    "_comment": "expert: вероятности исходов поставки по типу канала (открытой статистики нет)",
+    "russian_manufacturer": {"on_time": 0.90, "delay": 0.08, "fail": 0.02},
+    "official_distributor": {"on_time": 0.85, "delay": 0.12, "fail": 0.03},
+    "unknown": {"on_time": 0.75, "delay": 0.18, "fail": 0.07},
+    "left_ru_parallel_import": {"on_time": 0.70, "delay": 0.22, "fail": 0.08},
+    "left_ru_excluded_from_parallel_import": {"on_time": 0.55, "delay": 0.30, "fail": 0.15},
+    "delay_days": 28,
+    "fail_days": 42,
+    "urgency_premium": 0.10,
+    "_days": "expert: задержка 4 недели; при срыве - поиск замены и поставка 6 недель с наценкой за срочность 10 %"
+  },
+  "penalty": {
+    "_comment": "law: пеня 1/300 ключевой ставки ЦБ в день от цены договора, уменьшенной пропорционально исполненному (по аналогии с ч. 7 ст. 34 44-ФЗ); ставка - data/raw/cbr_key_rate.csv",
+    "key_rate_divisor": 300
+  },
+  "strategies": {
+    "С1": {"name": "Лидеры АНР", "mode": "on_delivery",
+           "mix": {"ИБП": {"Piton": 1}, "АВР": {"Уралэнерготел": 1}, "КВМ": {"Aten": 1},
+                   "Коммутаторы": {"Eltex": 1}, "ПК и серверы": {"Lenovo": 1}}},
+    "С2": {"name": "Зарубежный премиум", "mode": "on_delivery",
+           "mix": {"ИБП": {"APC": 1}, "АВР": {"Elemy": 1}, "КВМ": {"Adder": 1},
+                   "Коммутаторы": {"HP (HPE Aruba)": 1}, "ПК и серверы": {"HP": 1}}},
+    "С3": {"name": "Диверсификация", "mode": "on_delivery", "leader_share": 0.6,
+           "mix": {"ИБП": {"Piton": "x", "Eltena": "1-x"}, "АВР": {"Уралэнерготел": "x", "Elemy": "1-x"},
+                   "КВМ": {"Aten": "x", "Adder": "1-x"}, "Коммутаторы": {"Eltex": "x", "HP (HPE Aruba)": "1-x"},
+                   "ПК и серверы": {"Lenovo": "x", "HP": "1-x"}}},
+    "С4": {"name": "Опережающая закупка", "mode": "advance",
+           "mix": {"ИБП": {"Piton": 1}, "АВР": {"Уралэнерготел": 1}, "КВМ": {"Aten": 1},
+                   "Коммутаторы": {"Eltex": 1}, "ПК и серверы": {"Lenovo": 1}}}
+  },
+  "analysis": {
+    "mc_samples": 200000,
+    "seed": 42,
+    "hurwicz_pessimism": 0.6,
+    "_hurwicz": "expert: директор скорее осторожен (вес худшего исхода 0,6)",
+    "risk_aversion": 0.3,
+    "_risk_aversion": "expert: J = (1 - β)·E[C] + β·CVaR95 при β = 0,3",
+    "share_bounds": [0.4, 1.0]
+  }
+}
