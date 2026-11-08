@@ -1,0 +1,1822 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="https://github.com/AndrewFalse/sppr-supplier-selection/ontology"
+         xmlns="https://github.com/AndrewFalse/sppr-supplier-selection/ontology#"
+         xmlns:swrl="http://www.w3.org/2003/11/swrl#">
+
+<owl:Ontology rdf:about="https://github.com/AndrewFalse/sppr-supplier-selection/ontology"/>
+
+<owl:ObjectProperty rdf:about="#madeBy">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="#Vendor"/>
+  <rdfs:label xml:lang="ru">производится вендором</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#producedIn">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">страна производства</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasChannel">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Vendor"/>
+  <rdfs:range rdf:resource="#SupplyChannel"/>
+  <rdfs:label xml:lang="ru">канал поставки</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#vendorCountry">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Vendor"/>
+  <rdfs:range rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">страна вендора</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#replacement">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">замена при срыве поставки</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#modelName">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  <rdfs:label xml:lang="ru">модель</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#priceRub">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">цена, руб.</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#leadWeeks">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">срок поставки, нед.</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#warrantyMonths">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">гарантия, мес.</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#ahpPriority">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">приоритет АНР</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#qualityScore">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">оценка k2 (качество)</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#reliabilityScore">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">оценка k3 (надёжность)</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#sanctionRiskScore">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">оценка k6 (санкционный риск)</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#russianOriginScore">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">оценка k7 (российское происхождение)</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#unavailable">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">недоступна у продавцов</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#priceConfirmed">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">цена подтверждена</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#sellerWarrantyOnly">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">гарантия только продавца</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#activePowerW">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">активная мощность, Вт</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#switchTimeMs">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">время переключения, мс</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#ratedCurrentA">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">номинальный ток, А</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#rackMount">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">стоечное исполнение</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#sfpPlusPorts">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">портов SFP+</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#l3Routing">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Equipment"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">маршрутизация L3</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#rackLoadW">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">нагрузка стойки, Вт</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#powerMargin">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">запас мощности ИБП</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#sfpPlusRequired">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">требуется портов SFP+</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#atsBeforeUps">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">АВР стоит перед ИБП</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#maxAtsSwitchMs">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">допустимое время переключения АВР, мс</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#rackMountAtsRequired">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">требуется стоечный АВР</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#l3Required">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">требуется маршрутизация L3</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#russianOriginRequired">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  <rdfs:label xml:lang="ru">требуется импортозамещение</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#minRussianOriginScore">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="ru">минимальная оценка k7</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#maxLeadWeeks">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Complex"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="ru">допустимый срок поставки, нед.</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#Equipment">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="ru">Оборудование (альтернатива)</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#UPS">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">ИБП (источник бесперебойного питания)</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#ATS">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">АВР (автоматический ввод резерва)</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#KVMSwitch">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">КВМ-переключатель</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#NetworkSwitch">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Коммутатор</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#PCServerKit">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Комплект ПК и сервер</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#Vendor">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="ru">Вендор (производитель)</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#Country">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="ru">Страна</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#SupplyChannel">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="ru">Канал поставки в РФ</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#RussianManufacturerChannel">
+  <rdfs:subClassOf rdf:resource="#SupplyChannel"/>
+  <rdfs:label xml:lang="ru">российский производитель</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#OfficialDistributorChannel">
+  <rdfs:subClassOf rdf:resource="#SupplyChannel"/>
+  <rdfs:label xml:lang="ru">официальный дистрибьютор</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#ParallelImportChannel">
+  <rdfs:subClassOf rdf:resource="#SupplyChannel"/>
+  <rdfs:label xml:lang="ru">параллельный импорт</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#ExcludedFromParallelImport">
+  <rdfs:subClassOf rdf:resource="#ParallelImportChannel"/>
+  <rdfs:label xml:lang="ru">исключён из перечня параллельного импорта</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#UnconfirmedChannel">
+  <rdfs:subClassOf rdf:resource="#SupplyChannel"/>
+  <rdfs:label xml:lang="ru">статус в РФ не подтверждён</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#Complex">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="ru">Типовой диспетчерский комплекс (требования)</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#InadmissibleAlternative">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Недопустимая альтернатива</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#OnlyBeforeUps">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Допустима только перед ИБП</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#HighSanctionRisk">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Высокий санкционный риск</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#RequiresApproval">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Требует согласования ЛПР</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#RequiresSpareParts">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Требует резерва ЗИП</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#RequiresQuote">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Требует запроса КП</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#AdmissibleAlternative">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Допустимая альтернатива</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#RecommendedAlternative">
+  <rdfs:subClassOf rdf:resource="#Equipment"/>
+  <rdfs:label xml:lang="ru">Рекомендуемая альтернатива</rdfs:label>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#ch_russian_manufacturer">
+  <rdf:type rdf:resource="#RussianManufacturerChannel"/>
+  <rdfs:label xml:lang="ru">российский производитель</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ch_official_distributor">
+  <rdf:type rdf:resource="#OfficialDistributorChannel"/>
+  <rdfs:label xml:lang="ru">официальный дистрибьютор</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ch_parallel_import">
+  <rdf:type rdf:resource="#ParallelImportChannel"/>
+  <rdfs:label xml:lang="ru">параллельный импорт</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ch_excluded">
+  <rdf:type rdf:resource="#ExcludedFromParallelImport"/>
+  <rdfs:label xml:lang="ru">исключён из перечня параллельного импорта</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ch_unconfirmed">
+  <rdf:type rdf:resource="#UnconfirmedChannel"/>
+  <rdfs:label xml:lang="ru">статус в РФ не подтверждён</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_apc">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_parallel_import"/>
+  <vendorCountry rdf:resource="#country_usa"/>
+  <rdfs:label xml:lang="ru">APC</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_usa">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">США</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ups_apc">
+  <rdf:type rdf:resource="#UPS"/>
+  <madeBy rdf:resource="#v_apc"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_ups_piton"/>
+  <rdf:type rdf:resource="#RequiresSpareParts"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">APC Smart-UPS SRT 3000VA RM SRT3000RMXLI-NC</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Smart-UPS SRT 3000VA RM SRT3000RMXLI-NC</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">389565.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.1596</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+  <activePowerW rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2700.0</activePowerW>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_unknown">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">не указано</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_vertiv">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_unconfirmed"/>
+  <vendorCountry rdf:resource="#country_usa"/>
+  <rdfs:label xml:lang="ru">Vertiv</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ups_vertiv">
+  <rdf:type rdf:resource="#UPS"/>
+  <madeBy rdf:resource="#v_vertiv"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_ups_piton"/>
+  <rdf:type rdf:resource="#InadmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">Vertiv Liebert GXT5-3000IRT2UXLE</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Liebert GXT5-3000IRT2UXLE</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">106724.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.1694</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</sellerWarrantyOnly>
+  <activePowerW rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3000.0</activePowerW>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_eltena">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_russian_manufacturer"/>
+  <vendorCountry rdf:resource="#country_russia"/>
+  <rdfs:label xml:lang="ru">Eltena</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_russia">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">Россия</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ups_eltena">
+  <rdf:type rdf:resource="#UPS"/>
+  <madeBy rdf:resource="#v_eltena"/>
+  <producedIn rdf:resource="#country_china"/>
+  <replacement rdf:resource="#m_ups_piton"/>
+  <rdf:type rdf:resource="#RequiresQuote"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">Eltena Monolith E3000RTLT (EN-ME-3000RTLT) + батарейный блок BFR96-9E</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Monolith E3000RTLT (EN-ME-3000RTLT) + батарейный блок BFR96-9E</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">113844.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3109</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+  <activePowerW rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2400.0</activePowerW>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_china">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">Китай</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_piton">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_russian_manufacturer"/>
+  <vendorCountry rdf:resource="#country_russia"/>
+  <rdfs:label xml:lang="ru">Piton</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ups_piton">
+  <rdf:type rdf:resource="#UPS"/>
+  <madeBy rdf:resource="#v_piton"/>
+  <producedIn rdf:resource="#country_russia"/>
+  <replacement rdf:resource="#m_ups_eltena"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdf:type rdf:resource="#RecommendedAlternative"/>
+  <rdfs:label xml:lang="ru">Piton PitON РТ-серия 3kVA с АКБ 9Ач (5 лет), РТ0030.008.002</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PitON РТ-серия 3kVA с АКБ 9Ач (5 лет), РТ0030.008.002</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">79950.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3602</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+  <activePowerW rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2700.0</activePowerW>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_elemy">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_russian_manufacturer"/>
+  <vendorCountry rdf:resource="#country_russia"/>
+  <rdfs:label xml:lang="ru">Elemy</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ats_elemy">
+  <rdf:type rdf:resource="#ATS"/>
+  <madeBy rdf:resource="#v_elemy"/>
+  <producedIn rdf:resource="#country_russia"/>
+  <replacement rdf:resource="#m_ats_uralenergotel"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">Elemy ATS-1603</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ATS-1603</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60000.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3377</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</sellerWarrantyOnly>
+  <switchTimeMs rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</switchTimeMs>
+  <ratedCurrentA rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16.0</ratedCurrentA>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_uralenergotel">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_russian_manufacturer"/>
+  <vendorCountry rdf:resource="#country_russia"/>
+  <rdfs:label xml:lang="ru">Уралэнерготел</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ats_uralenergotel">
+  <rdf:type rdf:resource="#ATS"/>
+  <madeBy rdf:resource="#v_uralenergotel"/>
+  <producedIn rdf:resource="#country_russia"/>
+  <replacement rdf:resource="#m_ats_elemy"/>
+  <rdf:type rdf:resource="#OnlyBeforeUps"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdf:type rdf:resource="#RecommendedAlternative"/>
+  <rdfs:label xml:lang="ru">Уралэнерготел АВР19-16А-4 (NA04190316)</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">АВР19-16А-4 (NA04190316)</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">37240.5</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.4071</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</sellerWarrantyOnly>
+  <switchTimeMs rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">55.0</switchTimeMs>
+  <ratedCurrentA rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16.0</ratedCurrentA>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_bonpet">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_russian_manufacturer"/>
+  <vendorCountry rdf:resource="#country_russia"/>
+  <rdfs:label xml:lang="ru">BONPET</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_ats_bonpet">
+  <rdf:type rdf:resource="#ATS"/>
+  <madeBy rdf:resource="#v_bonpet"/>
+  <producedIn rdf:resource="#country_russia"/>
+  <replacement rdf:resource="#m_ats_uralenergotel"/>
+  <rdf:type rdf:resource="#InadmissibleAlternative"/>
+  <rdf:type rdf:resource="#OnlyBeforeUps"/>
+  <rdfs:label xml:lang="ru">BONPET АВР-Б-63-2-1 (щитовой шкаф)</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">АВР-Б-63-2-1 (щитовой шкаф)</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">88024.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.2552</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</sellerWarrantyOnly>
+  <switchTimeMs rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3500.0</switchTimeMs>
+  <ratedCurrentA rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">63.0</ratedCurrentA>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</rackMount>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_aten">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_official_distributor"/>
+  <vendorCountry rdf:resource="#country_taiwan"/>
+  <rdfs:label xml:lang="ru">Aten</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_taiwan">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">Тайвань</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_kvmswitch_aten">
+  <rdf:type rdf:resource="#KVMSwitch"/>
+  <madeBy rdf:resource="#v_aten"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_kvmswitch_adder"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdf:type rdf:resource="#RecommendedAlternative"/>
+  <rdfs:label xml:lang="ru">Aten CS1924M-AT-G</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CS1924M-AT-G</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">72119.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.6364</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_adder">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_unconfirmed"/>
+  <vendorCountry rdf:resource="#country_uk"/>
+  <rdfs:label xml:lang="ru">Adder</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_uk">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">Великобритания</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_kvmswitch_adder">
+  <rdf:type rdf:resource="#KVMSwitch"/>
+  <madeBy rdf:resource="#v_adder"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_kvmswitch_aten"/>
+  <rdf:type rdf:resource="#RequiresQuote"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">Adder ADDERView PRO AV4PRO-DP</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ADDERView PRO AV4PRO-DP</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">73990.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3636</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</sellerWarrantyOnly>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_hp_hpe_aruba">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_parallel_import"/>
+  <vendorCountry rdf:resource="#country_usa"/>
+  <rdfs:label xml:lang="ru">HP (HPE Aruba)</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_networkswitch_hp_hpe_aruba">
+  <rdf:type rdf:resource="#NetworkSwitch"/>
+  <madeBy rdf:resource="#v_hp_hpe_aruba"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_networkswitch_eltex"/>
+  <rdf:type rdf:resource="#RequiresSpareParts"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">HP (HPE Aruba) Aruba CX 6100 24G 4SFP+ (JL678A)</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aruba CX 6100 24G 4SFP+ (JL678A)</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">134080.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.2281</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+  <sfpPlusPorts rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sfpPlusPorts>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+  <l3Routing rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</l3Routing>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_cisco">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_parallel_import"/>
+  <vendorCountry rdf:resource="#country_usa"/>
+  <rdfs:label xml:lang="ru">Cisco</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_networkswitch_cisco">
+  <rdf:type rdf:resource="#NetworkSwitch"/>
+  <madeBy rdf:resource="#v_cisco"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_networkswitch_eltex"/>
+  <rdf:type rdf:resource="#RequiresSpareParts"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">Cisco Catalyst C1000-24T-4X-L</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Catalyst C1000-24T-4X-L</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">86209.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.2062</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+  <sfpPlusPorts rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sfpPlusPorts>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+  <l3Routing rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</l3Routing>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_eltex">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_russian_manufacturer"/>
+  <vendorCountry rdf:resource="#country_russia"/>
+  <rdfs:label xml:lang="ru">Eltex</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_networkswitch_eltex">
+  <rdf:type rdf:resource="#NetworkSwitch"/>
+  <madeBy rdf:resource="#v_eltex"/>
+  <producedIn rdf:resource="#country_russia"/>
+  <replacement rdf:resource="#m_networkswitch_hp_hpe_aruba"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdf:type rdf:resource="#RecommendedAlternative"/>
+  <rdfs:label xml:lang="ru">Eltex MES2300-24</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MES2300-24</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">144916.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3574</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</sellerWarrantyOnly>
+  <sfpPlusPorts rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sfpPlusPorts>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+  <l3Routing rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</l3Routing>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_mikrotik">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_unconfirmed"/>
+  <vendorCountry rdf:resource="#country_latvia"/>
+  <rdfs:label xml:lang="ru">MikroTik</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#country_latvia">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="ru">Латвия</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_networkswitch_mikrotik">
+  <rdf:type rdf:resource="#NetworkSwitch"/>
+  <madeBy rdf:resource="#v_mikrotik"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_networkswitch_eltex"/>
+  <rdf:type rdf:resource="#InadmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">MikroTik CRS326-24G-2S+RM</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CRS326-24G-2S+RM</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26200.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.2083</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+  <sfpPlusPorts rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</sfpPlusPorts>
+  <rackMount rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMount>
+  <l3Routing rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</l3Routing>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_lenovo">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_parallel_import"/>
+  <vendorCountry rdf:resource="#country_china"/>
+  <rdfs:label xml:lang="ru">Lenovo</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_pcserverkit_lenovo">
+  <rdf:type rdf:resource="#PCServerKit"/>
+  <madeBy rdf:resource="#v_lenovo"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_pcserverkit_hp"/>
+  <rdf:type rdf:resource="#RequiresSpareParts"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdf:type rdf:resource="#RecommendedAlternative"/>
+  <rdfs:label xml:lang="ru">Lenovo ThinkCentre M70q Gen 4 12E3S1KY00 + ThinkSystem SR250 V3 (1U)</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ThinkCentre M70q Gen 4 12E3S1KY00 + ThinkSystem SR250 V3 (1U)</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">455424.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.5847</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#v_hp">
+  <rdf:type rdf:resource="#Vendor"/>
+  <hasChannel rdf:resource="#ch_excluded"/>
+  <vendorCountry rdf:resource="#country_usa"/>
+  <rdfs:label xml:lang="ru">HP</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#m_pcserverkit_hp">
+  <rdf:type rdf:resource="#PCServerKit"/>
+  <madeBy rdf:resource="#v_hp"/>
+  <producedIn rdf:resource="#country_unknown"/>
+  <replacement rdf:resource="#m_pcserverkit_lenovo"/>
+  <rdf:type rdf:resource="#HighSanctionRisk"/>
+  <rdf:type rdf:resource="#RequiresSpareParts"/>
+  <rdf:type rdf:resource="#RequiresApproval"/>
+  <rdf:type rdf:resource="#AdmissibleAlternative"/>
+  <rdfs:label xml:lang="ru">HP HP Elite 800 G9 Mini C7GG7AT + HPE ProLiant DL20 Gen10 4SFF P17081-B21 (1U)</rdfs:label>
+  <modelName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HP Elite 800 G9 Mini C7GG7AT + HPE ProLiant DL20 Gen10 4SFF P17081-B21 (1U)</modelName>
+  <priceRub rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">280177.0</priceRub>
+  <leadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</leadWeeks>
+  <warrantyMonths rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.0</warrantyMonths>
+  <ahpPriority rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.4153</ahpPriority>
+  <qualityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</qualityScore>
+  <reliabilityScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</reliabilityScore>
+  <sanctionRiskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</sanctionRiskScore>
+  <russianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</russianOriginScore>
+  <unavailable rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</unavailable>
+  <priceConfirmed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</priceConfirmed>
+  <sellerWarrantyOnly rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</sellerWarrantyOnly>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#typical_complex">
+  <rdf:type rdf:resource="#Complex"/>
+  <rdfs:label xml:lang="ru">Типовой диспетчерский комплекс</rdfs:label>
+  <rackLoadW rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1500.0</rackLoadW>
+  <powerMargin rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.25</powerMargin>
+  <sfpPlusRequired rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</sfpPlusRequired>
+  <atsBeforeUps rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</atsBeforeUps>
+  <maxAtsSwitchMs rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.0</maxAtsSwitchMs>
+  <rackMountAtsRequired rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</rackMountAtsRequired>
+  <l3Required rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</l3Required>
+  <russianOriginRequired rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</russianOriginRequired>
+  <minRussianOriginScore rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</minRussianOriginScore>
+  <maxLeadWeeks rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</maxLeadWeeks>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R1">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Equipment"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#unavailable"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R1: ЕСЛИ модель недоступна у продавцов ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R2">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#ATS"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#rackMount"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#rackMountAtsRequired"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R2: ЕСЛИ требуется стоечный АВР, а АВР щитовой ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R3">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#ATS"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#switchTimeMs"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#t"/>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#maxAtsSwitchMs"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:resource="urn:swrl#x"/>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:BuiltinAtom>
+                          <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                          <swrl:arguments>
+                            <rdf:Description>
+                              <rdf:first rdf:resource="urn:swrl#t"/>
+                              <rdf:rest>
+                                <rdf:Description>
+                                  <rdf:first rdf:resource="urn:swrl#x"/>
+                                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                </rdf:Description>
+                              </rdf:rest>
+                            </rdf:Description>
+                          </swrl:arguments>
+                        </swrl:BuiltinAtom>
+                      </rdf:first>
+                      <rdf:rest>
+                        <rdf:Description>
+                          <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                              <swrl:propertyPredicate rdf:resource="#atsBeforeUps"/>
+                              <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                              <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                          </rdf:first>
+                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                        </rdf:Description>
+                      </rdf:rest>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R3: ЕСЛИ АВР питает нагрузку напрямую и переключается дольше 20 мс ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R3a">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#ATS"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#switchTimeMs"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#t"/>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#maxAtsSwitchMs"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:resource="urn:swrl#x"/>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:BuiltinAtom>
+                          <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                          <swrl:arguments>
+                            <rdf:Description>
+                              <rdf:first rdf:resource="urn:swrl#t"/>
+                              <rdf:rest>
+                                <rdf:Description>
+                                  <rdf:first rdf:resource="urn:swrl#x"/>
+                                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                </rdf:Description>
+                              </rdf:rest>
+                            </rdf:Description>
+                          </swrl:arguments>
+                        </swrl:BuiltinAtom>
+                      </rdf:first>
+                      <rdf:rest>
+                        <rdf:Description>
+                          <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                              <swrl:propertyPredicate rdf:resource="#atsBeforeUps"/>
+                              <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                              <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                          </rdf:first>
+                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                        </rdf:Description>
+                      </rdf:rest>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#OnlyBeforeUps"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R3a: ЕСЛИ АВР стоит перед ИБП и переключается дольше 20 мс ТО допустима только перед ИБП</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R4">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#UPS"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#activePowerW"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#p"/>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#rackLoadW"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:resource="urn:swrl#l"/>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:DatavaluedPropertyAtom>
+                          <swrl:propertyPredicate rdf:resource="#powerMargin"/>
+                          <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                          <swrl:argument2 rdf:resource="urn:swrl#g"/>
+                        </swrl:DatavaluedPropertyAtom>
+                      </rdf:first>
+                      <rdf:rest>
+                        <rdf:Description>
+                          <rdf:first>
+                            <swrl:BuiltinAtom>
+                              <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#multiply"/>
+                              <swrl:arguments>
+                                <rdf:Description>
+                                  <rdf:first rdf:resource="urn:swrl#r"/>
+                                  <rdf:rest>
+                                    <rdf:Description>
+                                      <rdf:first rdf:resource="urn:swrl#l"/>
+                                      <rdf:rest>
+                                        <rdf:Description>
+                                          <rdf:first rdf:resource="urn:swrl#g"/>
+                                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                        </rdf:Description>
+                                      </rdf:rest>
+                                    </rdf:Description>
+                                  </rdf:rest>
+                                </rdf:Description>
+                              </swrl:arguments>
+                            </swrl:BuiltinAtom>
+                          </rdf:first>
+                          <rdf:rest>
+                            <rdf:Description>
+                              <rdf:first>
+                                <swrl:BuiltinAtom>
+                                  <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThan"/>
+                                  <swrl:arguments>
+                                    <rdf:Description>
+                                      <rdf:first rdf:resource="urn:swrl#p"/>
+                                      <rdf:rest>
+                                        <rdf:Description>
+                                          <rdf:first rdf:resource="urn:swrl#r"/>
+                                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                        </rdf:Description>
+                                      </rdf:rest>
+                                    </rdf:Description>
+                                  </swrl:arguments>
+                                </swrl:BuiltinAtom>
+                              </rdf:first>
+                              <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                          </rdf:rest>
+                        </rdf:Description>
+                      </rdf:rest>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R4: ЕСЛИ мощность ИБП меньше нагрузки стойки × 1,25 ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R5">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#NetworkSwitch"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#sfpPlusPorts"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#n"/>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#sfpPlusRequired"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:resource="urn:swrl#q"/>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:BuiltinAtom>
+                          <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThan"/>
+                          <swrl:arguments>
+                            <rdf:Description>
+                              <rdf:first rdf:resource="urn:swrl#n"/>
+                              <rdf:rest>
+                                <rdf:Description>
+                                  <rdf:first rdf:resource="urn:swrl#q"/>
+                                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                </rdf:Description>
+                              </rdf:rest>
+                            </rdf:Description>
+                          </swrl:arguments>
+                        </swrl:BuiltinAtom>
+                      </rdf:first>
+                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R5: ЕСЛИ у коммутатора портов SFP+ меньше требуемого ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R6">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#NetworkSwitch"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#l3Routing"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#l3Required"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R6: ЕСЛИ требуется маршрутизация L3, а коммутатор только L2 ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R7">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Equipment"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#russianOriginScore"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#o"/>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#russianOriginRequired"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:DatavaluedPropertyAtom>
+                          <swrl:propertyPredicate rdf:resource="#minRussianOriginScore"/>
+                          <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                          <swrl:argument2 rdf:resource="urn:swrl#s"/>
+                        </swrl:DatavaluedPropertyAtom>
+                      </rdf:first>
+                      <rdf:rest>
+                        <rdf:Description>
+                          <rdf:first>
+                            <swrl:BuiltinAtom>
+                              <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThan"/>
+                              <swrl:arguments>
+                                <rdf:Description>
+                                  <rdf:first rdf:resource="urn:swrl#o"/>
+                                  <rdf:rest>
+                                    <rdf:Description>
+                                      <rdf:first rdf:resource="urn:swrl#s"/>
+                                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                    </rdf:Description>
+                                  </rdf:rest>
+                                </rdf:Description>
+                              </swrl:arguments>
+                            </swrl:BuiltinAtom>
+                          </rdf:first>
+                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                        </rdf:Description>
+                      </rdf:rest>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R7: ЕСЛИ требуется импортозамещение, а оценка k7 &lt; 4 ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R8">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Equipment"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#leadWeeks"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#w"/>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Complex"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#maxLeadWeeks"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#k"/>
+                      <swrl:argument2 rdf:resource="urn:swrl#x"/>
+                    </swrl:DatavaluedPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:BuiltinAtom>
+                          <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                          <swrl:arguments>
+                            <rdf:Description>
+                              <rdf:first rdf:resource="urn:swrl#w"/>
+                              <rdf:rest>
+                                <rdf:Description>
+                                  <rdf:first rdf:resource="urn:swrl#x"/>
+                                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                </rdf:Description>
+                              </rdf:rest>
+                            </rdf:Description>
+                          </swrl:arguments>
+                        </swrl:BuiltinAtom>
+                      </rdf:first>
+                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#InadmissibleAlternative"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R8: ЕСЛИ срок поставки больше допустимого ТО недопустима</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R9">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Equipment"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:IndividualPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#madeBy"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#v"/>
+            </swrl:IndividualPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:IndividualPropertyAtom>
+                  <swrl:propertyPredicate rdf:resource="#hasChannel"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#v"/>
+                  <swrl:argument2 rdf:resource="urn:swrl#c"/>
+                </swrl:IndividualPropertyAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:ClassAtom>
+                      <swrl:classPredicate rdf:resource="#ExcludedFromParallelImport"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#c"/>
+                    </swrl:ClassAtom>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#HighSanctionRisk"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R9: ЕСЛИ вендор исключён из перечня параллельного импорта ТО высокий санкционный риск</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R10">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#HighSanctionRisk"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#RequiresApproval"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R10: ЕСЛИ высокий санкционный риск ТО закупка по согласованию ЛПР</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R11">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Equipment"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:IndividualPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#madeBy"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:resource="urn:swrl#v"/>
+            </swrl:IndividualPropertyAtom>
+          </rdf:first>
+          <rdf:rest>
+            <rdf:Description>
+              <rdf:first>
+                <swrl:IndividualPropertyAtom>
+                  <swrl:propertyPredicate rdf:resource="#hasChannel"/>
+                  <swrl:argument1 rdf:resource="urn:swrl#v"/>
+                  <swrl:argument2 rdf:resource="urn:swrl#c"/>
+                </swrl:IndividualPropertyAtom>
+              </rdf:first>
+              <rdf:rest>
+                <rdf:Description>
+                  <rdf:first>
+                    <swrl:ClassAtom>
+                      <swrl:classPredicate rdf:resource="#ParallelImportChannel"/>
+                      <swrl:argument1 rdf:resource="urn:swrl#c"/>
+                    </swrl:ClassAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <swrl:DatavaluedPropertyAtom>
+                          <swrl:propertyPredicate rdf:resource="#sellerWarrantyOnly"/>
+                          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+                          <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                        </swrl:DatavaluedPropertyAtom>
+                      </rdf:first>
+                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </rdf:rest>
+            </rdf:Description>
+          </rdf:rest>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#RequiresSpareParts"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R11: ЕСЛИ параллельный импорт и гарантия только продавца ТО заложить резерв ЗИП</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#rule_R12">
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+  <swrl:body>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Equipment"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first>
+            <swrl:DatavaluedPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#priceConfirmed"/>
+              <swrl:argument1 rdf:resource="urn:swrl#m"/>
+              <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+            </swrl:DatavaluedPropertyAtom>
+          </rdf:first>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </swrl:body>
+  <swrl:head>
+    <rdf:Description>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#RequiresQuote"/>
+          <swrl:argument1 rdf:resource="urn:swrl#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </rdf:Description>
+  </swrl:head>
+  <rdfs:label xml:lang="ru">R12: ЕСЛИ цена не подтверждена открытой страницей ТО запросить КП</rdfs:label>
+</owl:NamedIndividual>
+
+<swrl:Variable rdf:about="urn:swrl#m"/>
+
+<swrl:Variable rdf:about="urn:swrl#k"/>
+
+<swrl:Variable rdf:about="urn:swrl#t"/>
+
+<swrl:Variable rdf:about="urn:swrl#x"/>
+
+<swrl:Variable rdf:about="urn:swrl#p"/>
+
+<swrl:Variable rdf:about="urn:swrl#l"/>
+
+<swrl:Variable rdf:about="urn:swrl#g"/>
+
+<swrl:Variable rdf:about="urn:swrl#r"/>
+
+<swrl:Variable rdf:about="urn:swrl#n"/>
+
+<swrl:Variable rdf:about="urn:swrl#q"/>
+
+<swrl:Variable rdf:about="urn:swrl#o"/>
+
+<swrl:Variable rdf:about="urn:swrl#s"/>
+
+<swrl:Variable rdf:about="urn:swrl#w"/>
+
+<swrl:Variable rdf:about="urn:swrl#v"/>
+
+<swrl:Variable rdf:about="urn:swrl#c"/>
+
+
+</rdf:RDF>

@@ -1,0 +1,20 @@
+step,rule,model,vendor,category,fact,why
+1,R1,m_ups_vertiv,Vertiv,ИБП,inadmissible,модель недоступна у продавцов
+1,R2,m_ats_bonpet,BONPET,АВР,inadmissible,"АВР щитовой, а требуется стоечный"
+1,R3a,m_ats_uralenergotel,Уралэнерготел,АВР,only_before_ups,переключение 55 мс допустимо только перед ИБП
+1,R3a,m_ats_bonpet,BONPET,АВР,only_before_ups,переключение 3500 мс допустимо только перед ИБП
+1,R5,m_networkswitch_mikrotik,MikroTik,Коммутаторы,inadmissible,2 порта SFP+ < 4
+1,R9,m_pcserverkit_hp,HP,ПК и серверы,high_sanction_risk,вендор исключён из перечня параллельного импорта
+1,R11,m_ups_apc,APC,ИБП,requires_spare_parts,параллельный импорт и гарантия только продавца - резерв ЗИП
+1,R11,m_networkswitch_hp_hpe_aruba,HP (HPE Aruba),Коммутаторы,requires_spare_parts,параллельный импорт и гарантия только продавца - резерв ЗИП
+1,R11,m_networkswitch_cisco,Cisco,Коммутаторы,requires_spare_parts,параллельный импорт и гарантия только продавца - резерв ЗИП
+1,R11,m_pcserverkit_lenovo,Lenovo,ПК и серверы,requires_spare_parts,параллельный импорт и гарантия только продавца - резерв ЗИП
+1,R11,m_pcserverkit_hp,HP,ПК и серверы,requires_spare_parts,параллельный импорт и гарантия только продавца - резерв ЗИП
+1,R12,m_ups_eltena,Eltena,ИБП,requires_quote,цена не подтверждена открытой страницей - запросить КП
+1,R12,m_kvmswitch_adder,Adder,КВМ,requires_quote,цена не подтверждена открытой страницей - запросить КП
+2,R10,m_pcserverkit_hp,HP,ПК и серверы,requires_approval,высокий санкционный риск - закупка по согласованию ЛПР
+3,R13,m_ups_piton,Piton,ИБП,recommended,"наибольший приоритет АНР среди допустимых (0,36)"
+3,R13,m_ats_uralenergotel,Уралэнерготел,АВР,recommended,"наибольший приоритет АНР среди допустимых (0,407)"
+3,R13,m_kvmswitch_aten,Aten,КВМ,recommended,"наибольший приоритет АНР среди допустимых (0,636)"
+3,R13,m_networkswitch_eltex,Eltex,Коммутаторы,recommended,"наибольший приоритет АНР среди допустимых (0,357)"
+3,R13,m_pcserverkit_lenovo,Lenovo,ПК и серверы,recommended,"наибольший приоритет АНР среди допустимых (0,585)"

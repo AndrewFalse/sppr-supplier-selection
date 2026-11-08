@@ -1,0 +1,16 @@
+category,vendor,admissible,exclusion_rules,exclusion_reason,flags,flag_rules,recommended,scenario
+ИБП,APC,False,R4,"мощность 2700 Вт < 2200 × 1,25 = 2750 Вт",Требует резерва ЗИП,R11,False,high_load
+ИБП,Vertiv,False,R1,модель недоступна у продавцов,,,False,high_load
+ИБП,Eltena,False,R4,"мощность 2400 Вт < 2200 × 1,25 = 2750 Вт",Требует запроса КП,R12,False,high_load
+ИБП,Piton,False,R4,"мощность 2700 Вт < 2200 × 1,25 = 2750 Вт",,,False,high_load
+АВР,Elemy,True,,,,,False,high_load
+АВР,Уралэнерготел,True,,,Допустима только перед ИБП,R3a,True,high_load
+АВР,BONPET,False,R2,"АВР щитовой, а требуется стоечный",Допустима только перед ИБП,R3a,False,high_load
+КВМ,Aten,True,,,,,True,high_load
+КВМ,Adder,True,,,Требует запроса КП,R12,False,high_load
+Коммутаторы,HP (HPE Aruba),True,,,Требует резерва ЗИП,R11,False,high_load
+Коммутаторы,Cisco,True,,,Требует резерва ЗИП,R11,False,high_load
+Коммутаторы,Eltex,True,,,,,True,high_load
+Коммутаторы,MikroTik,False,R5,2 порта SFP+ < 4,,,False,high_load
+ПК и серверы,Lenovo,True,,,Требует резерва ЗИП,R11,True,high_load
+ПК и серверы,HP,True,,,"Высокий санкционный риск, Требует согласования ЛПР, Требует резерва ЗИП","R9, R10, R11",False,high_load

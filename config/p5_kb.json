@@ -1,0 +1,157 @@
+{
+  "_comment": "База знаний практики №5: требования типового комплекса, сценарии и продукционные правила. expert - допущение аналитика (может уточнить ЛПР); из практики N - перенесено.",
+  "requirements": {
+    "rack_load_w": 1500,
+    "_rack_load_w": "expert: расчётная нагрузка стойки и пульта (сервер, коммутаторы, КВМ, рабочие места, связь), Вт",
+    "power_margin": 1.25,
+    "_power_margin": "expert: запас мощности ИБП 25 %",
+    "sfp_plus_required": 4,
+    "_sfp_plus_required": "expert: 2 восходящих канала и 2 порта для стекирования/резервирования",
+    "ats_before_ups": true,
+    "_ats_before_ups": "схема питания: АВР стоит перед ИБП (ИБП покрывает время переключения)",
+    "max_ats_switch_ms": 20,
+    "_max_ats_switch_ms": "expert: допустимое время переключения АВР при прямом питании ИТ-нагрузки",
+    "rack_mount_ats_required": true,
+    "l3_required": false,
+    "russian_origin_required": false,
+    "min_russian_origin_score": 4,
+    "_min_russian_origin_score": "оценка k7 >= 4 - российский производитель с производством в РФ (практика №2)",
+    "max_lead_weeks": 12,
+    "_max_lead_weeks": "из практики №4"
+  },
+  "scenarios": [
+    {
+      "id": "base",
+      "name": "Типовой комплекс",
+      "changes": {}
+    },
+    {
+      "id": "direct_ats",
+      "name": "АВР питает нагрузку напрямую",
+      "changes": {
+        "ats_before_ups": false
+      }
+    },
+    {
+      "id": "high_load",
+      "name": "Нагрузка стойки 2,2 кВт",
+      "changes": {
+        "rack_load_w": 2200
+      }
+    },
+    {
+      "id": "import_substitution",
+      "name": "Требование импортозамещения",
+      "changes": {
+        "russian_origin_required": true
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "R1",
+      "kind": "exclude",
+      "if": "модель недоступна у продавцов",
+      "then": "недопустима",
+      "swrl": "Equipment(?m), unavailable(?m, true) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R2",
+      "kind": "exclude",
+      "if": "требуется стоечный АВР, а АВР щитовой",
+      "then": "недопустима",
+      "swrl": "ATS(?m), rackMount(?m, false), Complex(?k), rackMountAtsRequired(?k, true) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R3",
+      "kind": "exclude",
+      "if": "АВР питает нагрузку напрямую и переключается дольше 20 мс",
+      "then": "недопустима",
+      "swrl": "ATS(?m), switchTimeMs(?m, ?t), Complex(?k), maxAtsSwitchMs(?k, ?x), greaterThan(?t, ?x), atsBeforeUps(?k, false) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R3a",
+      "kind": "flag",
+      "if": "АВР стоит перед ИБП и переключается дольше 20 мс",
+      "then": "допустима только перед ИБП",
+      "swrl": "ATS(?m), switchTimeMs(?m, ?t), Complex(?k), maxAtsSwitchMs(?k, ?x), greaterThan(?t, ?x), atsBeforeUps(?k, true) -> OnlyBeforeUps(?m)"
+    },
+    {
+      "id": "R4",
+      "kind": "exclude",
+      "if": "мощность ИБП меньше нагрузки стойки × 1,25",
+      "then": "недопустима",
+      "swrl": "UPS(?m), activePowerW(?m, ?p), Complex(?k), rackLoadW(?k, ?l), powerMargin(?k, ?g), multiply(?r, ?l, ?g), lessThan(?p, ?r) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R5",
+      "kind": "exclude",
+      "if": "у коммутатора портов SFP+ меньше требуемого",
+      "then": "недопустима",
+      "swrl": "NetworkSwitch(?m), sfpPlusPorts(?m, ?n), Complex(?k), sfpPlusRequired(?k, ?q), lessThan(?n, ?q) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R6",
+      "kind": "exclude",
+      "if": "требуется маршрутизация L3, а коммутатор только L2",
+      "then": "недопустима",
+      "swrl": "NetworkSwitch(?m), l3Routing(?m, false), Complex(?k), l3Required(?k, true) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R7",
+      "kind": "exclude",
+      "if": "требуется импортозамещение, а оценка k7 < 4",
+      "then": "недопустима",
+      "swrl": "Equipment(?m), russianOriginScore(?m, ?o), Complex(?k), russianOriginRequired(?k, true), minRussianOriginScore(?k, ?s), lessThan(?o, ?s) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R8",
+      "kind": "exclude",
+      "if": "срок поставки больше допустимого",
+      "then": "недопустима",
+      "swrl": "Equipment(?m), leadWeeks(?m, ?w), Complex(?k), maxLeadWeeks(?k, ?x), greaterThan(?w, ?x) -> InadmissibleAlternative(?m)"
+    },
+    {
+      "id": "R9",
+      "kind": "flag",
+      "if": "вендор исключён из перечня параллельного импорта",
+      "then": "высокий санкционный риск",
+      "swrl": "Equipment(?m), madeBy(?m, ?v), hasChannel(?v, ?c), ExcludedFromParallelImport(?c) -> HighSanctionRisk(?m)"
+    },
+    {
+      "id": "R10",
+      "kind": "flag",
+      "if": "высокий санкционный риск",
+      "then": "закупка по согласованию ЛПР",
+      "swrl": "HighSanctionRisk(?m) -> RequiresApproval(?m)"
+    },
+    {
+      "id": "R11",
+      "kind": "flag",
+      "if": "параллельный импорт и гарантия только продавца",
+      "then": "заложить резерв ЗИП",
+      "swrl": "Equipment(?m), madeBy(?m, ?v), hasChannel(?v, ?c), ParallelImportChannel(?c), sellerWarrantyOnly(?m, true) -> RequiresSpareParts(?m)"
+    },
+    {
+      "id": "R12",
+      "kind": "flag",
+      "if": "цена не подтверждена открытой страницей",
+      "then": "запросить КП",
+      "swrl": "Equipment(?m), priceConfirmed(?m, false) -> RequiresQuote(?m)"
+    },
+    {
+      "id": "R13",
+      "kind": "closed_world",
+      "if": "альтернатива допустима и лучшая по АНР в категории",
+      "then": "рекомендуемая",
+      "swrl": null
+    },
+    {
+      "id": "R14",
+      "kind": "closed_world",
+      "if": "в категории нет допустимых альтернатив",
+      "then": "расширить перечень поставщиков",
+      "swrl": null
+    }
+  ]
+}

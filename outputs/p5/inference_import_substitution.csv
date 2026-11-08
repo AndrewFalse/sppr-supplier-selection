@@ -1,0 +1,16 @@
+category,vendor,admissible,exclusion_rules,exclusion_reason,flags,flag_rules,recommended,scenario
+ИБП,APC,False,R7,k7 = 1 < 4 (не российское производство),Требует резерва ЗИП,R11,False,import_substitution
+ИБП,Vertiv,False,"R1, R7",модель недоступна у продавцов; k7 = 1 < 4 (не российское производство),,,False,import_substitution
+ИБП,Eltena,False,R7,k7 = 3 < 4 (не российское производство),Требует запроса КП,R12,False,import_substitution
+ИБП,Piton,True,,,,,True,import_substitution
+АВР,Elemy,True,,,,,False,import_substitution
+АВР,Уралэнерготел,True,,,Допустима только перед ИБП,R3a,True,import_substitution
+АВР,BONPET,False,R2,"АВР щитовой, а требуется стоечный",Допустима только перед ИБП,R3a,False,import_substitution
+КВМ,Aten,False,R7,k7 = 1 < 4 (не российское производство),,,False,import_substitution
+КВМ,Adder,False,R7,k7 = 1 < 4 (не российское производство),Требует запроса КП,R12,False,import_substitution
+Коммутаторы,HP (HPE Aruba),False,R7,k7 = 1 < 4 (не российское производство),Требует резерва ЗИП,R11,False,import_substitution
+Коммутаторы,Cisco,False,R7,k7 = 1 < 4 (не российское производство),Требует резерва ЗИП,R11,False,import_substitution
+Коммутаторы,Eltex,True,,,,,True,import_substitution
+Коммутаторы,MikroTik,False,"R5, R7",2 порта SFP+ < 4; k7 = 1 < 4 (не российское производство),,,False,import_substitution
+ПК и серверы,Lenovo,False,R7,k7 = 1 < 4 (не российское производство),Требует резерва ЗИП,R11,False,import_substitution
+ПК и серверы,HP,False,R7,k7 = 1 < 4 (не российское производство),"Высокий санкционный риск, Требует согласования ЛПР, Требует резерва ЗИП","R9, R10, R11",False,import_substitution

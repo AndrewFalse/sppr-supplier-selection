@@ -1,0 +1,16 @@
+category,vendor,admissible,exclusion_rules,exclusion_reason,flags,flag_rules,recommended,scenario
+ИБП,APC,True,,,Требует резерва ЗИП,R11,False,base
+ИБП,Vertiv,False,R1,модель недоступна у продавцов,,,False,base
+ИБП,Eltena,True,,,Требует запроса КП,R12,False,base
+ИБП,Piton,True,,,,,True,base
+АВР,Elemy,True,,,,,False,base
+АВР,Уралэнерготел,True,,,Допустима только перед ИБП,R3a,True,base
+АВР,BONPET,False,R2,"АВР щитовой, а требуется стоечный",Допустима только перед ИБП,R3a,False,base
+КВМ,Aten,True,,,,,True,base
+КВМ,Adder,True,,,Требует запроса КП,R12,False,base
+Коммутаторы,HP (HPE Aruba),True,,,Требует резерва ЗИП,R11,False,base
+Коммутаторы,Cisco,True,,,Требует резерва ЗИП,R11,False,base
+Коммутаторы,Eltex,True,,,,,True,base
+Коммутаторы,MikroTik,False,R5,2 порта SFP+ < 4,,,False,base
+ПК и серверы,Lenovo,True,,,Требует резерва ЗИП,R11,True,base
+ПК и серверы,HP,True,,,"Высокий санкционный риск, Требует согласования ЛПР, Требует резерва ЗИП","R9, R10, R11",False,base

@@ -1,0 +1,16 @@
+id,kind,if,then,swrl
+R1,exclude,модель недоступна у продавцов,недопустима,"Equipment(?m), unavailable(?m, true) -> InadmissibleAlternative(?m)"
+R2,exclude,"требуется стоечный АВР, а АВР щитовой",недопустима,"ATS(?m), rackMount(?m, false), Complex(?k), rackMountAtsRequired(?k, true) -> InadmissibleAlternative(?m)"
+R3,exclude,АВР питает нагрузку напрямую и переключается дольше 20 мс,недопустима,"ATS(?m), switchTimeMs(?m, ?t), Complex(?k), maxAtsSwitchMs(?k, ?x), greaterThan(?t, ?x), atsBeforeUps(?k, false) -> InadmissibleAlternative(?m)"
+R3a,flag,АВР стоит перед ИБП и переключается дольше 20 мс,допустима только перед ИБП,"ATS(?m), switchTimeMs(?m, ?t), Complex(?k), maxAtsSwitchMs(?k, ?x), greaterThan(?t, ?x), atsBeforeUps(?k, true) -> OnlyBeforeUps(?m)"
+R4,exclude,"мощность ИБП меньше нагрузки стойки × 1,25",недопустима,"UPS(?m), activePowerW(?m, ?p), Complex(?k), rackLoadW(?k, ?l), powerMargin(?k, ?g), multiply(?r, ?l, ?g), lessThan(?p, ?r) -> InadmissibleAlternative(?m)"
+R5,exclude,у коммутатора портов SFP+ меньше требуемого,недопустима,"NetworkSwitch(?m), sfpPlusPorts(?m, ?n), Complex(?k), sfpPlusRequired(?k, ?q), lessThan(?n, ?q) -> InadmissibleAlternative(?m)"
+R6,exclude,"требуется маршрутизация L3, а коммутатор только L2",недопустима,"NetworkSwitch(?m), l3Routing(?m, false), Complex(?k), l3Required(?k, true) -> InadmissibleAlternative(?m)"
+R7,exclude,"требуется импортозамещение, а оценка k7 < 4",недопустима,"Equipment(?m), russianOriginScore(?m, ?o), Complex(?k), russianOriginRequired(?k, true), minRussianOriginScore(?k, ?s), lessThan(?o, ?s) -> InadmissibleAlternative(?m)"
+R8,exclude,срок поставки больше допустимого,недопустима,"Equipment(?m), leadWeeks(?m, ?w), Complex(?k), maxLeadWeeks(?k, ?x), greaterThan(?w, ?x) -> InadmissibleAlternative(?m)"
+R9,flag,вендор исключён из перечня параллельного импорта,высокий санкционный риск,"Equipment(?m), madeBy(?m, ?v), hasChannel(?v, ?c), ExcludedFromParallelImport(?c) -> HighSanctionRisk(?m)"
+R10,flag,высокий санкционный риск,закупка по согласованию ЛПР,HighSanctionRisk(?m) -> RequiresApproval(?m)
+R11,flag,параллельный импорт и гарантия только продавца,заложить резерв ЗИП,"Equipment(?m), madeBy(?m, ?v), hasChannel(?v, ?c), ParallelImportChannel(?c), sellerWarrantyOnly(?m, true) -> RequiresSpareParts(?m)"
+R12,flag,цена не подтверждена открытой страницей,запросить КП,"Equipment(?m), priceConfirmed(?m, false) -> RequiresQuote(?m)"
+R13,closed_world,альтернатива допустима и лучшая по АНР в категории,рекомендуемая,
+R14,closed_world,в категории нет допустимых альтернатив,расширить перечень поставщиков,

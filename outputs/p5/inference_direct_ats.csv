@@ -1,0 +1,16 @@
+category,vendor,admissible,exclusion_rules,exclusion_reason,flags,flag_rules,recommended,scenario
+ИБП,APC,True,,,Требует резерва ЗИП,R11,False,direct_ats
+ИБП,Vertiv,False,R1,модель недоступна у продавцов,,,False,direct_ats
+ИБП,Eltena,True,,,Требует запроса КП,R12,False,direct_ats
+ИБП,Piton,True,,,,,True,direct_ats
+АВР,Elemy,True,,,,,True,direct_ats
+АВР,Уралэнерготел,False,R3,переключение 55 мс > 20 мс при прямом питании нагрузки,,,False,direct_ats
+АВР,BONPET,False,"R2, R3","АВР щитовой, а требуется стоечный; переключение 3500 мс > 20 мс при прямом питании нагрузки",,,False,direct_ats
+КВМ,Aten,True,,,,,True,direct_ats
+КВМ,Adder,True,,,Требует запроса КП,R12,False,direct_ats
+Коммутаторы,HP (HPE Aruba),True,,,Требует резерва ЗИП,R11,False,direct_ats
+Коммутаторы,Cisco,True,,,Требует резерва ЗИП,R11,False,direct_ats
+Коммутаторы,Eltex,True,,,,,True,direct_ats
+Коммутаторы,MikroTik,False,R5,2 порта SFP+ < 4,,,False,direct_ats
+ПК и серверы,Lenovo,True,,,Требует резерва ЗИП,R11,True,direct_ats
+ПК и серверы,HP,True,,,"Высокий санкционный риск, Требует согласования ЛПР, Требует резерва ЗИП","R9, R10, R11",False,direct_ats

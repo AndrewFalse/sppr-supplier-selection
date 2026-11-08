@@ -1,0 +1,175 @@
+{
+  "ontology": {
+    "classes": 23,
+    "object_properties": 5,
+    "data_properties": 28,
+    "models": 15,
+    "vendors": 15,
+    "channels": 5,
+    "countries": 7,
+    "complexes": 1,
+    "swrl_rules": 13
+  },
+  "rules_total": 15,
+  "rules_swrl": 13,
+  "inference_steps": 3,
+  "derived_facts": 19,
+  "base_inadmissible": [
+    {
+      "vendor": "Vertiv",
+      "exclusion_rules": "R1",
+      "exclusion_reason": "модель недоступна у продавцов"
+    },
+    {
+      "vendor": "BONPET",
+      "exclusion_rules": "R2",
+      "exclusion_reason": "АВР щитовой, а требуется стоечный"
+    },
+    {
+      "vendor": "MikroTik",
+      "exclusion_rules": "R5",
+      "exclusion_reason": "2 порта SFP+ < 4"
+    }
+  ],
+  "base_flags": [
+    {
+      "category": "ИБП",
+      "vendor": "APC",
+      "flags": "Требует резерва ЗИП",
+      "flag_rules": "R11"
+    },
+    {
+      "category": "ИБП",
+      "vendor": "Eltena",
+      "flags": "Требует запроса КП",
+      "flag_rules": "R12"
+    },
+    {
+      "category": "АВР",
+      "vendor": "Уралэнерготел",
+      "flags": "Допустима только перед ИБП",
+      "flag_rules": "R3a"
+    },
+    {
+      "category": "АВР",
+      "vendor": "BONPET",
+      "flags": "Допустима только перед ИБП",
+      "flag_rules": "R3a"
+    },
+    {
+      "category": "КВМ",
+      "vendor": "Adder",
+      "flags": "Требует запроса КП",
+      "flag_rules": "R12"
+    },
+    {
+      "category": "Коммутаторы",
+      "vendor": "HP (HPE Aruba)",
+      "flags": "Требует резерва ЗИП",
+      "flag_rules": "R11"
+    },
+    {
+      "category": "Коммутаторы",
+      "vendor": "Cisco",
+      "flags": "Требует резерва ЗИП",
+      "flag_rules": "R11"
+    },
+    {
+      "category": "ПК и серверы",
+      "vendor": "Lenovo",
+      "flags": "Требует резерва ЗИП",
+      "flag_rules": "R11"
+    },
+    {
+      "category": "ПК и серверы",
+      "vendor": "HP",
+      "flags": "Высокий санкционный риск, Требует согласования ЛПР, Требует резерва ЗИП",
+      "flag_rules": "R9, R10, R11"
+    }
+  ],
+  "expand_suppliers_base": [],
+  "recommended_base": [
+    {
+      "category": "ИБП",
+      "vendor": "Piton"
+    },
+    {
+      "category": "АВР",
+      "vendor": "Уралэнерготел"
+    },
+    {
+      "category": "КВМ",
+      "vendor": "Aten"
+    },
+    {
+      "category": "Коммутаторы",
+      "vendor": "Eltex"
+    },
+    {
+      "category": "ПК и серверы",
+      "vendor": "Lenovo"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "base",
+      "name": "Типовой комплекс",
+      "inadmissible": "Vertiv (R1); BONPET (R2); MikroTik (R5)",
+      "n_inadmissible": 3,
+      "expand_suppliers": "",
+      "recommended": "Piton, Уралэнерготел, Aten, Eltex, Lenovo",
+      "status": "Optimal",
+      "utility": 0.872508724180601,
+      "cost": 11948879.847795028,
+      "plan": "Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Cisco 4; Eltex 6; Lenovo 4; HP 6",
+      "mc_mean_advance": 11240840.753453804,
+      "mc_cvar95_advance": 12702604.821037129,
+      "binding": "бюджет, доля поставщика 60 %"
+    },
+    {
+      "id": "direct_ats",
+      "name": "АВР питает нагрузку напрямую",
+      "inadmissible": "Vertiv (R1); Уралэнерготел (R3); BONPET (R2, R3); MikroTik (R5)",
+      "n_inadmissible": 4,
+      "expand_suppliers": "",
+      "recommended": "Piton, Elemy, Aten, Eltex, Lenovo",
+      "status": "Optimal",
+      "utility": 0.8435907259793942,
+      "cost": 11998400.663220821,
+      "plan": "Eltena 4; Piton 6; Elemy 10; Aten 6; Adder 4; Cisco 5; Eltex 5; Lenovo 4; HP 6",
+      "mc_mean_advance": 11266791.141869443,
+      "mc_cvar95_advance": 12743090.585033191,
+      "binding": "бюджет, доля высокого риска, доля поставщика 60 %, один допустимый поставщик: АВР"
+    },
+    {
+      "id": "high_load",
+      "name": "Нагрузка стойки 2,2 кВт",
+      "inadmissible": "APC (R4); Vertiv (R1); Eltena (R4); Piton (R4); BONPET (R2); MikroTik (R5)",
+      "n_inadmissible": 6,
+      "expand_suppliers": "ИБП",
+      "recommended": "Уралэнерготел, Aten, Eltex, Lenovo",
+      "status": "Infeasible",
+      "utility": NaN,
+      "cost": NaN,
+      "plan": NaN,
+      "mc_mean_advance": NaN,
+      "mc_cvar95_advance": NaN,
+      "binding": "нет допустимых поставщиков: ИБП"
+    },
+    {
+      "id": "import_substitution",
+      "name": "Требование импортозамещения",
+      "inadmissible": "APC (R7); Vertiv (R1, R7); Eltena (R7); BONPET (R2); Aten (R7); Adder (R7); HP (HPE Aruba) (R7); Cisco (R7); MikroTik (R5, R7); Lenovo (R7); HP (R7)",
+      "n_inadmissible": 11,
+      "expand_suppliers": "КВМ, ПК и серверы",
+      "recommended": "Piton, Уралэнерготел, Eltex",
+      "status": "Infeasible",
+      "utility": NaN,
+      "cost": NaN,
+      "plan": NaN,
+      "mc_mean_advance": NaN,
+      "mc_cvar95_advance": NaN,
+      "binding": "нет допустимых поставщиков: КВМ, ПК и серверы"
+    }
+  ]
+}
