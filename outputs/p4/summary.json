@@ -1,0 +1,147 @@
+{
+  "n_complexes": 10,
+  "expected_fx_change": 0.013030621146998118,
+  "delay_day_cost_per_complex": 3573.5167333333334,
+  "params": {
+    "budget_rub": 12000000,
+    "t_max_weeks": 12,
+    "max_share": 0.6,
+    "max_suppliers": 2,
+    "min_lot": 2,
+    "high_risk_k6": 4,
+    "max_high_risk_share": 0.3
+  },
+  "status": "Optimal",
+  "gap_rel": 0.0,
+  "solve_time_s": 0.1232450008392334,
+  "utility": 0.8845676347186651,
+  "cost": 11644964.646688277,
+  "base_cost": 10357891.0,
+  "slack": {
+    "budget": 355035.3533117254,
+    "high_risk": 5.0
+  },
+  "binding": [
+    "бюджет",
+    "доля поставщика 60 %"
+  ],
+  "plan": [
+    {
+      "category": "ИБП",
+      "vendor": "Eltena",
+      "complexes": 4,
+      "share": 0.4,
+      "exp_cost": 958830.1107873691,
+      "utility_contrib": 0.0690505274847307,
+      "unit_cost": 227688.0,
+      "exp_unit_cost": 239707.52769684227
+    },
+    {
+      "category": "ИБП",
+      "vendor": "Piton",
+      "complexes": 6,
+      "share": 0.6,
+      "exp_cost": 1040255.0121876155,
+      "utility_contrib": 0.12,
+      "unit_cost": 159900.0,
+      "exp_unit_cost": 173375.8353646026
+    },
+    {
+      "category": "АВР",
+      "vendor": "Elemy",
+      "complexes": 4,
+      "share": 0.4,
+      "exp_cost": 283435.141827555,
+      "utility_contrib": 0.0663620732006878,
+      "unit_cost": 60000.0,
+      "exp_unit_cost": 70858.78545688876
+    },
+    {
+      "category": "АВР",
+      "vendor": "Уралэнерготел",
+      "complexes": 6,
+      "share": 0.6,
+      "exp_cost": 293819.7007056442,
+      "utility_contrib": 0.12,
+      "unit_cost": 37240.5,
+      "exp_unit_cost": 48969.95011760737
+    },
+    {
+      "category": "КВМ",
+      "vendor": "Aten",
+      "complexes": 6,
+      "share": 0.6,
+      "exp_cost": 978049.7587882897,
+      "utility_contrib": 0.12,
+      "unit_cost": 144238.0,
+      "exp_unit_cost": 163008.29313138162
+    },
+    {
+      "category": "КВМ",
+      "vendor": "Adder",
+      "complexes": 4,
+      "share": 0.4,
+      "exp_cost": 716671.7278036658,
+      "utility_contrib": 0.0457071024512885,
+      "unit_cost": 147980.0,
+      "exp_unit_cost": 179167.93195091645
+    },
+    {
+      "category": "Коммутаторы",
+      "vendor": "Eltex",
+      "complexes": 6,
+      "share": 0.6,
+      "exp_cost": 1812771.198595735,
+      "utility_contrib": 0.12,
+      "unit_cost": 289832.0,
+      "exp_unit_cost": 302128.53309928917
+    },
+    {
+      "category": "Коммутаторы",
+      "vendor": "MikroTik",
+      "complexes": 4,
+      "share": 0.4,
+      "exp_cost": 401151.9092942588,
+      "utility_contrib": 0.04662562954672636,
+      "unit_cost": 52400.0,
+      "exp_unit_cost": 100287.9773235647
+    },
+    {
+      "category": "ПК и серверы",
+      "vendor": "Lenovo",
+      "complexes": 6,
+      "share": 0.6,
+      "exp_cost": 3307425.9346867567,
+      "utility_contrib": 0.12,
+      "unit_cost": 518986.0,
+      "exp_unit_cost": 551237.6557811261
+    },
+    {
+      "category": "ПК и серверы",
+      "vendor": "HP",
+      "complexes": 4,
+      "share": 0.4,
+      "exp_cost": 1852554.1520113847,
+      "utility_contrib": 0.05682230203523174,
+      "unit_cost": 376110.0,
+      "exp_unit_cost": 463138.5380028462
+    }
+  ],
+  "simulation": {
+    "on_delivery": {
+      "mean": 11301747.872963924,
+      "cvar95": 13425761.60548663,
+      "std": 938959.0246594914
+    },
+    "advance": {
+      "mean": 10988031.865134284,
+      "cvar95": 12103093.445715306,
+      "std": 451903.8871409388
+    }
+  },
+  "n_variables": 30,
+  "n_constraints": 42,
+  "pareto_points": 11,
+  "min_cost": 10737836.513140682,
+  "max_utility_cost": 12481999.729397459
+}

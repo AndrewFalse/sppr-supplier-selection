@@ -1,0 +1,12 @@
+budget,cost,utility,plan
+10800000.0000,10737836.5131,0.8224,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Cisco 4; MikroTik 6; Lenovo 4; HP 6
+10900000.0000,10825935.6309,0.8282,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Cisco 4; MikroTik 6; Lenovo 5; HP 5
+11000000.0000,10914034.7487,0.8340,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Cisco 4; MikroTik 6; Lenovo 6; HP 4
+11100000.0000,11065085.2996,0.8563,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 4; MikroTik 6; Lenovo 4; HP 6
+11200000.0000,11153184.4174,0.8621,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 4; MikroTik 6; Lenovo 5; HP 5
+11300000.0000,11241283.5351,0.8679,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 4; MikroTik 6; Lenovo 6; HP 4
+11400000.0000,11355024.9731,0.8704,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 5; MikroTik 5; Lenovo 5; HP 5
+11500000.0000,11443124.0909,0.8762,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 5; MikroTik 5; Lenovo 6; HP 4
+11600000.0000,11556865.5289,0.8788,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 6; MikroTik 4; Lenovo 5; HP 5
+11700000.0000,11644964.6467,0.8846,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; Eltex 6; MikroTik 4; Lenovo 6; HP 4
+12500000.0000,12481999.7294,0.8890,Eltena 4; Piton 6; Elemy 4; Уралэнерготел 6; Aten 6; Adder 4; HP (HPE Aruba) 4; Eltex 6; Lenovo 6; HP 4
