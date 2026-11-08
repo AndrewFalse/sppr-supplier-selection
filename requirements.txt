@@ -6,4 +6,6 @@ matplotlib>=3.8
 openpyxl>=3.1
 pulp[cbc]>=4.2
 owlready2>=0.47
+scikit-learn>=1.4
+requests>=2.31
 pytest>=8.0
