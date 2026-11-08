@@ -1,0 +1,13 @@
+{
+  "_comment": "Контексты ЛПР для рекомендательного модуля практики №7",
+  "contexts": {
+    "base": {"name": "Типовой комплекс", "kb_changes": {}, "weights": {}},
+    "risk_averse": {"name": "Осторожный ЛПР (надёжность и санкционный риск x1,5)", "kb_changes": {},
+                    "weights": {"k3": 1.5, "k6": 1.5}},
+    "import_substitution": {"name": "Требование импортозамещения", "kb_changes": {"russian_origin_required": true},
+                            "weights": {"k7": 2.0}}
+  },
+  "confidence": {"kappa": 50, "samples": 3000, "_kappa": "концентрация распределения Дирихле вокруг весов ЛПР: чем меньше, тем сильнее разброс суждений"},
+  "counterfactual_max_cut": 0.6,
+  "fx_check_week": 4
+}
