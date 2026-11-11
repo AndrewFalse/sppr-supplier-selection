@@ -38,6 +38,7 @@
 | 5 | База знаний | онтология OWL (`kb/sppr_suppliers.owl`, открывается в Protégé): 23 класса, 15 моделей, 15 вендоров, каналы поставки, требования комплекса; 15 продукционных правил (13 продублированы на SWRL), прямой логический вывод с объяснениями на Python; допуск передаётся в оптимизационную модель практики 4, 4 сценария требований (`outputs/p5/`) |
 | 6 | Предиктивная аналитика и BI | прогноз курса USD/RUB на 13 недель (4 модели: случайное блуждание, дрейф, Хольт с затухающим трендом, градиентный бустинг; скользящая и отложенная проверка, интервалы по ошибкам проверки) и индексов цен производителей Росстата; прогноз стоимости плана практики 4; витрина SQLite и дашборд Apache Superset 6.1 в Docker (`bi/`, `outputs/p6/`) |
 | 7 | Рекомендательный модуль | гибридные рекомендации ЛПР: отбор кандидатов базой знаний, ранжирование по полезности АНР с весами под контекст (типовой комплекс, осторожный ЛПР, импортозамещение), объём - оптимизацией практики 4, действия - правилами по сигналам рисков, базы знаний и прогноза; объяснения: вклады критериев, уверенность (устойчивость к разбросу весов), контрфакт по цене, сценарий что если (`outputs/p7/`, функция `recommend_for`) |
+| 8 | Итоговая СППР | работающий прототип: веб-интерфейс ЛПР (Streamlit, `app/main.py`) поверх модулей практик 2-7 - параметры директора, рекомендация, обоснование по вкладкам, сценарии «что если»; запуск всей системы через Docker Compose (интерфейс, Apache Superset, автосборка дашборда); сквозной прогон сценариев (`outputs/p8/`), сценарий записи демонстрации (`tools/record_screencast.py`) |
 
 ## Структура
 
@@ -45,7 +46,8 @@
 config/      суждения ЛПР, оценки качества, поправки к данным, параметры моделей
 data/        исходные (raw), собранные (research) и подготовленные (processed) данные
 kb/          онтология предметной области с правилами SWRL (для Protégé)
-bi/          стенд Apache Superset (Docker) и сборка дашборда ЛПР
+app/         веб-интерфейс ЛПР (прототип СППР)
+bi/          настройки Apache Superset и сборка дашборда ЛПР
 sppr/        расчётные модули: ahp.py (АНР), ratings.py (оценки 1-5), risk.py (неопределённость), optimize.py (оптимизация), kb.py (база знаний), forecast.py (прогноз), recommend.py (рекомендации)
 scripts/     запуск расчётов по практикам
 outputs/     результаты по практикам (CSV, JSON, Excel, рисунки)
@@ -55,25 +57,31 @@ tools/       сборка разделов паспорта СППР в Google D
 
 ## Запуск
 
+Вся система в Docker (интерфейс ЛПР и дашборд):
+
+```bash
+cp bi/.env.example bi/.env        # задать SUPERSET_SECRET_KEY и пароль администратора Superset
+docker compose up -d --build
+```
+
+- интерфейс ЛПР: http://localhost:8501
+- дашборд Apache Superset: http://localhost:8088/superset/dashboard/sppr/ (логин и пароль - из `bi/.env`; дашборд собирает сервис `dashboard-init`)
+
+Локально, без Docker:
+
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/p2_ahp.py        # практика 2: АНР-модель -> outputs/p2/
-python scripts/p2_excel.py      # практика 2: Excel-модель -> outputs/p2/ahp_model.xlsx
-python scripts/p3_risk.py       # практика 3: дерево решений и анализ стратегий -> outputs/p3/
-python scripts/p4_optimize.py   # практика 4: оптимальный план закупки -> outputs/p4/
-python scripts/p5_kb.py         # практика 5: онтология, логический вывод, сценарии -> kb/, outputs/p5/
-python scripts/p6_forecast.py    # практика 6: прогноз курса и цен, стоимость плана, витрина -> outputs/p6/
-python scripts/p7_recommend.py   # практика 7: рекомендации и действия для ЛПР -> outputs/p7/
-python -m pytest -q             # тесты
-```
-
-Дашборд ЛПР (Apache Superset 6.1, нужен Docker):
-
-```bash
-cp bi/.env.example bi/.env                     # задать SUPERSET_SECRET_KEY и пароль администратора
-docker compose -f bi/docker-compose.yml up -d  # http://localhost:8088
-python bi/build_dashboard.py                   # дашборд /superset/dashboard/sppr/ и экспорт bi/dashboard_export.zip
+streamlit run app/main.py         # интерфейс ЛПР
+python scripts/p2_ahp.py          # практика 2: АНР-модель -> outputs/p2/
+python scripts/p2_excel.py        # практика 2: Excel-модель -> outputs/p2/ahp_model.xlsx
+python scripts/p3_risk.py         # практика 3: дерево решений и анализ стратегий -> outputs/p3/
+python scripts/p4_optimize.py     # практика 4: оптимальный план закупки -> outputs/p4/
+python scripts/p5_kb.py           # практика 5: онтология, логический вывод, сценарии -> kb/, outputs/p5/
+python scripts/p6_forecast.py     # практика 6: прогноз курса и цен, стоимость плана, витрина -> outputs/p6/
+python scripts/p7_recommend.py    # практика 7: рекомендации и действия для ЛПР -> outputs/p7/
+python scripts/p8_scenarios.py    # практика 8: сквозной прогон сценариев ЛПР -> outputs/p8/
+python -m pytest -q               # тесты
 ```
 
 Онтологию можно открыть в Protégé: File → Open → `kb/sppr_suppliers.owl` (версия с выведенными фактами - `kb/sppr_suppliers_inferred.owl`); русские подписи - View → Render by label (rdfs:label). Правила SWRL выполняются во вкладке SWRLTab.

@@ -8,4 +8,6 @@ pulp[cbc]>=4.2
 owlready2>=0.47
 scikit-learn>=1.4
 requests>=2.31
+streamlit>=1.40
+altair>=5.0
 pytest>=8.0

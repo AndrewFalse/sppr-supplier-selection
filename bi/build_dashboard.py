@@ -2,8 +2,8 @@
 
 Создаёт подключение к витрине outputs/p6/sppr_bi.db, наборы данных, графики и дашборд,
 проверяет, что каждый график возвращает данные, и сохраняет экспорт дашборда в bi/dashboard_export.zip.
-Запуск (Superset должен работать на localhost:8088, учётные данные - из bi/.env):
-    .venv/bin/python bi/build_dashboard.py
+Запуск: автоматически сервисом dashboard-init (docker compose up) или вручную:
+    python bi/build_dashboard.py   (Superset на localhost:8088, учётные данные - из bi/.env)
 """
 import json
 import os
@@ -32,11 +32,17 @@ DATASETS = {
 
 
 def env():
+    """Учётные данные: из bi/.env, переменные окружения имеют приоритет (запуск в контейнере)."""
     vals = {}
-    for line in (BI / ".env").read_text(encoding="utf-8").splitlines():
-        if "=" in line and not line.startswith("#"):
-            k, v = line.split("=", 1)
-            vals[k.strip()] = v.strip()
+    f = BI / ".env"
+    if f.exists():
+        for line in f.read_text(encoding="utf-8").splitlines():
+            if "=" in line and not line.startswith("#"):
+                k, v = line.split("=", 1)
+                vals[k.strip()] = v.strip()
+    for k in ("SUPERSET_ADMIN_USER", "SUPERSET_ADMIN_PASSWORD"):
+        if os.environ.get(k):
+            vals[k] = os.environ[k]
     return vals
 
 

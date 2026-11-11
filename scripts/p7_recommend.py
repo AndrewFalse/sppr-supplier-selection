@@ -26,23 +26,27 @@ def load_json(*parts):
     return json.loads(ROOT.joinpath(*parts).read_text(encoding="utf-8"))
 
 
-def plan_for(admission, scored, utility_from_scored=True):
+def plan_for(admission, scored, utility_from_scored=True, changes=None):
     """План оптимизации практики №4 с допуском базы знаний и полезностями под контекст."""
     d = p4_optimize.load(admission=admission)
     if utility_from_scored:
         best = scored.groupby("category")["score"].transform("max")
         u = dict(zip(zip(scored["category"], scored["vendor"]), scored["score"] / best))
         d["tab"]["utility"] = [u.get((c, v), 0.0) for c, v in zip(d["tab"]["category"], d["tab"]["vendor"])]
-    p = p4_optimize.params_from(d["cfg4"])
+    p = p4_optimize.params_from(d["cfg4"], changes)
     r = p4_optimize.run(d["tab"], d["n"], p)
     if r["status"] == "Optimal":
+        r["simulation"] = p4_optimize.simulate(d["sim"], r["plan"], d["n"])
+        r["binding"] = p4_optimize.binding(r, p, d["n"], p4_optimize.budget_limits(d["tab"], d["n"], p, r))
         return r, None
     return r, p4_optimize.diagnose(d["tab"], d["n"], p)
 
 
-def recommend_for(context_id, cfg7=None):
+def recommend_for(context_id, cfg7=None, context=None):
+    """context - произвольный контекст ЛПР: {"name", "kb_changes", "weights", "params"} (для прототипа)."""
     cfg7 = cfg7 or load_json("config", "p7_recommend.json")
-    ctx = cfg7["contexts"][context_id]
+    ctx = context or cfg7["contexts"][context_id]
+    changes = ctx.get("params")
     cfg5 = load_json("config", "p5_kb.json")
     crit_cfg = load_json("config", "ahp_criteria.json")["criteria"]
     models, specs = p5_kb.load_models()
@@ -53,7 +57,7 @@ def recommend_for(context_id, cfg7=None):
     scored = rec.rescore(local, weights, table)
     conf = rec.confidence(scored, weights, cfg7["confidence"]["kappa"], cfg7["confidence"]["samples"])
     attrib = rec.attribution(scored, weights)
-    r, diag = plan_for(kb.admission(table), scored)
+    r, diag = plan_for(kb.admission(table), scored, changes=changes)
     plan = r["plan"] if diag is None else pd.DataFrame(columns=["category", "vendor", "complexes"])
     alts = pd.read_csv(ROOT / "data" / "processed" / "alternatives_scored.csv", dtype={"unavailable": str})
     recs = rec.supplier_recommendations(scored, plan, conf, attrib, alts, weights, crit_cfg)
@@ -75,7 +79,7 @@ def recommend_for(context_id, cfg7=None):
         t2 = table.copy()
         t2.loc[t2["vendor"].isin(approval), ["admissible", "exclusion_rules", "exclusion_reason"]] = [False, "ЛПР", "закупка не согласована"]
         scored2 = rec.rescore(local, weights, t2)
-        r2, diag2 = plan_for(kb.admission(t2), scored2)
+        r2, diag2 = plan_for(kb.admission(t2), scored2, changes=changes)
         if diag2 and "не хватает бюджета" in diag2:
             need = re.search(r"([\d.]+) млн", diag2).group(1).replace(".", ",")
             diag2 = f"план не укладывается в бюджет (нужно {need} млн руб.)"
@@ -88,7 +92,8 @@ def recommend_for(context_id, cfg7=None):
                         + " - при заданных требованиях допустимых альтернатив нет", "source": "база знаний R14"})
     return {"context": context_id, "name": ctx["name"], "weights": weights.to_dict(), "recommendations": recs,
             "actions": pd.DataFrame(acts), "plan_status": r["status"], "plan_diag": diag,
-            "utility": r.get("utility"), "cost": r.get("cost"), "scored": scored}
+            "utility": r.get("utility"), "cost": r.get("cost"), "scored": scored, "plan": plan, "kb_table": table,
+            "simulation": r.get("simulation"), "binding": r.get("binding"), "expand_suppliers": meta["expand_suppliers"]}
 
 
 def main():
